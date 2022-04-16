@@ -1,6 +1,7 @@
 using CommandAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder
     .Services
     .AddDbContext<CommandContext>(opt => opt.UseNpgsql(sqlBuilder.ConnectionString));
 builder.Services.AddControllers();
+// add auto mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddScoped<ICommandApiRepo, MockCommandApiRepo>();
 builder.Services.AddScoped<ICommandApiRepo, SqlCommandAPIRepo>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
