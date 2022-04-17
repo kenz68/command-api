@@ -12,7 +12,7 @@ public class SqlCommandAPIRepo : ICommandApiRepo
     }
     public bool SaveChange()
     {
-        throw new NotImplementedException();
+        return _context.SaveChanges() >= 0;
     }
 
     public IEnumerable<Command> GetAllCommands()
@@ -27,16 +27,26 @@ public class SqlCommandAPIRepo : ICommandApiRepo
 
     public void CreateCommand(Command cmd)
     {
-        throw new NotImplementedException();
+        if (cmd == null)
+        {
+            throw new ArgumentNullException(nameof(cmd));
+        }
+
+        _context.CommandItems.Add(cmd);
     }
 
     public void UpdateCommand(Command cmd)
     {
-        throw new NotImplementedException();
+        // We don't need to do anything here
     }
 
     public void DeleteCommand(Command cmd)
     {
-        throw new NotImplementedException();
+        if (cmd == null)
+        {
+            throw new ArgumentNullException(nameof(cmd));
+        }
+
+        _context.CommandItems.Remove(cmd);
     }
 }
